@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claim Rework Prioritizer</title>
+<style>
+  :root { --bg:#f7f8fa; --card:#fff; --text:#1d2330; --muted:#6b7280; --line:#e5e7eb;
+          --p1:#dc2626; --p2:#d97706; --p3:#2563eb; --exp:#6b7280; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#14171c; --card:#1d222a; --text:#e8eaee; --muted:#9aa3b2; --line:#2c333d; } }
+  body { margin:0; padding:24px; background:var(--bg); color:var(--text);
+         font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif; }
+  h1 { margin:0 0 4px; font-size:1.5rem; }
+  .sub { color:var(--muted); margin-bottom:20px; }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+           gap:12px; margin-bottom:20px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px; }
+  .card b { display:block; font-size:1.4rem; margin-top:4px; }
+  .wrap { overflow-x:auto; background:var(--card); border:1px solid var(--line); border-radius:10px; }
+  table { border-collapse:collapse; width:100%; min-width:820px; }
+  th,td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); }
+  th { font-size:.8rem; text-transform:uppercase; color:var(--muted); }
+  .num { text-align:right; font-variant-numeric:tabular-nums; }
+  .badge { padding:2px 8px; border-radius:99px; color:#fff; font-size:.75rem; font-weight:600; }
+  .badge.p1 { background:var(--p1); } .badge.p2 { background:var(--p2); }
+  .badge.p3 { background:var(--p3); } .badge.expired { background:var(--exp); }
+  tr.expired td { color:var(--muted); }
+</style></head><body>
+<h1>Claim Rework Prioritizer</h1>
+<div class="sub">Generated for 2026-10-29 &middot; ranked by expected recovery per effort hour, weighted by deadline urgency</div>
+<div class="cards">
+  <div class="card">Claims in queue<b>12</b></div>
+  <div class="card">Total billed<b>$44,580</b></div>
+  <div class="card">Expected recovery<b>$17,299</b></div>
+  <div class="card">Due within 7 days<b>3</b></div>
+  <div class="card">Expired<b>1</b></div>
+</div>
+<div class="wrap"><table>
+<thead><tr><th>#</th><th>Tier</th><th>Claim</th><th>Payer</th><th>Code</th>
+<th class="num">Billed</th><th class="num">Exp. recovery</th><th class="num">Days left</th>
+<th class="num">Score</th><th>Recommended action</th></tr></thead>
+<tbody>
+<tr class='p1'><td>1</td><td><span class='badge p1'>P1</span></td><td>CLM-1001</td><td>Aetna</td><td>16</td><td class='num'>$1,250</td><td class='num'>$1,062</td><td class='num'>5</td><td class='num'>8,500</td><td>Add missing info and resubmit</td></tr>
+<tr class='p1'><td>2</td><td><span class='badge p1'>P1</span></td><td>CLM-1012</td><td>Humana</td><td>197</td><td class='num'>$7,400</td><td class='num'>$3,256</td><td class='num'>6</td><td class='num'>4,341</td><td>Prior auth missing - retro-auth request</td></tr>
+<tr class='p1'><td>3</td><td><span class='badge p1'>P1</span></td><td>CLM-1007</td><td>Aetna</td><td>11</td><td class='num'>$1,800</td><td class='num'>$1,350</td><td class='num'>9</td><td class='num'>4,050</td><td>Correct diagnosis code and resubmit</td></tr>
+<tr class='p1'><td>4</td><td><span class='badge p1'>P1</span></td><td>CLM-1010</td><td>BCBS</td><td>50</td><td class='num'>$12,500</td><td class='num'>$5,625</td><td class='num'>60</td><td class='num'>2,812</td><td>Medical necessity - clinical appeal</td></tr>
+<tr class='p2'><td>5</td><td><span class='badge p2'>P2</span></td><td>CLM-1004</td><td>BCBS</td><td>4</td><td class='num'>$640</td><td class='num'>$512</td><td class='num'>45</td><td class='num'>2,048</td><td>Fix modifier and resubmit</td></tr>
+<tr class='p2'><td>6</td><td><span class='badge p2'>P2</span></td><td>CLM-1002</td><td>UHC</td><td>50</td><td class='num'>$8,400</td><td class='num'>$3,024</td><td class='num'>20</td><td class='num'>1,814</td><td>Medical necessity - clinical appeal</td></tr>
+<tr class='p2'><td>7</td><td><span class='badge p2'>P2</span></td><td>CLM-1003</td><td>Cigna</td><td>197</td><td class='num'>$3,200</td><td class='num'>$1,760</td><td class='num'>12</td><td class='num'>1,760</td><td>Prior auth missing - retro-auth request</td></tr>
+<tr class='p2'><td>8</td><td><span class='badge p2'>P2</span></td><td>CLM-1008</td><td>UHC</td><td>29</td><td class='num'>$5,600</td><td class='num'>$280</td><td class='num'>3</td><td class='num'>560</td><td>Timely filing - appeal with proof only</td></tr>
+<tr class='p3'><td>9</td><td><span class='badge p3'>P3</span></td><td>CLM-1006</td><td>Humana</td><td>27</td><td class='num'>$2,100</td><td class='num'>$269</td><td class='num'>25</td><td class='num'>323</td><td>Coverage terminated - find other payer</td></tr>
+<tr class='p3'><td>10</td><td><span class='badge p3'>P3</span></td><td>CLM-1005</td><td>Medicare</td><td>18</td><td class='num'>$410</td><td class='num'>$41</td><td class='num'>30</td><td class='num'>197</td><td>Duplicate - verify, likely write off</td></tr>
+<tr class='p3'><td>11</td><td><span class='badge p3'>P3</span></td><td>CLM-1011</td><td>Medicaid</td><td>45</td><td class='num'>$300</td><td class='num'>$120</td><td class='num'>14</td><td class='num'>180</td><td>Review denial and appeal</td></tr>
+<tr class='expired'><td>12</td><td><span class='badge expired'>EXPIRED</span></td><td>CLM-1009</td><td>Cigna</td><td>16</td><td class='num'>$980</td><td class='num'>$833</td><td class='num'>-4</td><td class='num'>0</td><td>Deadline passed - write off or escalate</td></tr>
+</tbody></table></div>
+</body></html>
